@@ -1,4 +1,4 @@
-from collections import namedtuple
+from collections import namedtuple, deque
 from typing import Generator
 from random import shuffle
 from enum import Enum
@@ -30,11 +30,14 @@ class Deck:
         self.shuffle()
 
     def __create_deck(self):
-        self.__cards = [Card(rank, suit) for suit in self.__suits__ for rank in self.__ranks__]
+        self.__cards = deque(
+            [Card(rank, suit) for suit in self.__suits__ for rank in self.__ranks__],
+            maxlen=52
+        )
 
     def draw(self, num_cards=1) -> Generator[Card, None, None]:
         for _ in range(num_cards):
-            yield self.__cards.pop(0) if len(self) > 0 else None
+            yield self.__cards.popleft() if len(self) > 0 else None
 
     def shuffle(self):
         shuffle(self.__cards)
@@ -46,7 +49,9 @@ class Deck:
         return len(self.__cards)
 
     def __getitem__(self, index):
-        return self.__cards[index]
+        card = self.__cards[index]
+        self.__cards.remove(card)
+        return card
 
     def __str__(self):
         return str([f"{card}" for card in self.__cards])
