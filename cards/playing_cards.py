@@ -27,13 +27,13 @@ class Deck:
 
     def __init__(self):
         self.__create_deck()
-        self.shuffle()
 
     def __create_deck(self):
         self.__cards = deque(
             [Card(rank, suit) for suit in self.__suits__ for rank in self.__ranks__],
             maxlen=52
         )
+        self.shuffle()
 
     def draw(self, num_cards=1) -> Generator[Card, None, None]:
         for _ in range(num_cards):
