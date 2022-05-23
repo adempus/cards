@@ -25,8 +25,3 @@ class TestDeck:
         deck_copy = deepcopy(self.deck)
         self.deck.shuffle()
         assert list(deck_copy) != list(self.deck)
-
-    def test_deck_index(self):
-        deck_size = len(self.deck)
-        card = self.deck[10]
-        assert isinstance(card, Card) and len(self.deck) == deck_size - 1

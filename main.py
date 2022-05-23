@@ -12,6 +12,10 @@ if __name__ == "__main__":
     pick = deck[10]
     print(f"pick: {pick}")
 
+    # slice the deck
+    deck_slice = deck[5:10]
+    print(f"slice: {deck_slice}")
+
     # shuffle deck
     deck.shuffle()
 
@@ -26,3 +30,5 @@ if __name__ == "__main__":
     # reset deck
     deck.reset()
     print(f"deck: {deck} \nsize: {len(deck)}")
+
+
